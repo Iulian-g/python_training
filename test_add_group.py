@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
-from selenium import webdriver
+import selenium
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-import unittest, time, re
+import unittest, time
 
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
+        from selenium.webdriver.firefox import webdriver
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
     
     def test_add_group(self):
-        wd = self.wd
+        success = True
+        wd: object = self.wd
         wd.get("http://localhost/addressbook/index.php")
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
