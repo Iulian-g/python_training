@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
+from adress import Adress
 
 class TestAdressPy(unittest.TestCase):
     def setUp(self):
@@ -17,11 +18,11 @@ class TestAdressPy(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
         self.add_new(wd)
-        self.open_and_init_form_adress_book(wd, firstname="gfhg", middlename="gfhf", lastname="fghfgh",
+        self.open_and_init_form_adress_book (wd,Adress(firstname="gfhg", middlename="gfhf", lastname="fghfgh",
                                   nickname="fghfgh", title="fghfgh", company="fghfgh", address="fghfgh",
                                   home="fghfgh", mobile="fghfgh", work="fghfgh", fax="fghfgh", email="fghfgh",
                                   email2="fghfg", email3="fghfgh", homepage="fghfgh", address2="fghfg",
-                                  phone2="fghfgh", notes="fghfgh")
+                                  phone2="fghfgh", notes="fghfgh"))
         self.return_to_home_page(wd)
         self.logout(wd)
 
@@ -30,12 +31,12 @@ class TestAdressPy(unittest.TestCase):
             self.open_home_page(wd)
             self.login(wd, username="admin", password="secret")
             self.add_new(wd)
-            self.open_and_init_form_adress_book(wd, firstname="", middlename="", lastname="",
+            self.open_and_init_form_adress_book(wd, Adress(firstname="", middlename="", lastname="",
                                                 nickname="", title="", company="", address="",
                                                 home="", mobile="", work="", fax="",
                                                 email="",
                                                 email2="", email3="", homepage="", address2="",
-                                                phone2="", notes="")
+                                                phone2="", notes=""))
             self.return_to_home_page(wd)
             self.logout(wd)
 
@@ -49,57 +50,55 @@ class TestAdressPy(unittest.TestCase):
         wd.find_element_by_xpath(
             "(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]").click()
 
-    def open_and_init_form_adress_book(self, wd, firstname, middlename, lastname, nickname, title, company, address,
-                                       home, mobile, work, fax, email, email2, email3, homepage, address2, phone2,
-                                       notes):
+    def open_and_init_form_adress_book(self, wd, adress):
         # open and init form adress book
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(firstname)
+        wd.find_element_by_name("firstname").send_keys(adress.firstname)
         wd.find_element_by_name("middlename").click()
         wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys(middlename)
+        wd.find_element_by_name("middlename").send_keys(adress.middlename)
         wd.find_element_by_name("lastname").click()
         wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(lastname)
+        wd.find_element_by_name("lastname").send_keys(adress.lastname)
         wd.find_element_by_name("nickname").click()
         wd.find_element_by_name("nickname").clear()
-        wd.find_element_by_name("nickname").send_keys(nickname)
+        wd.find_element_by_name("nickname").send_keys(adress.nickname)
         wd.find_element_by_name("title").click()
         wd.find_element_by_name("title").clear()
-        wd.find_element_by_name("title").send_keys(title)
+        wd.find_element_by_name("title").send_keys(adress.title)
         wd.find_element_by_name("company").click()
         wd.find_element_by_name("company").clear()
-        wd.find_element_by_name("company").send_keys(company)
+        wd.find_element_by_name("company").send_keys(adress.company)
         wd.find_element_by_name("address").click()
         wd.find_element_by_name("address").clear()
-        wd.find_element_by_name("address").send_keys(address)
+        wd.find_element_by_name("address").send_keys(adress.address)
         wd.find_element_by_xpath(
             "(.//*[normalize-space(text()) and normalize-space(.)='Address:'])[1]/following::label[1]").click()
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").clear()
-        wd.find_element_by_name("home").send_keys(home)
+        wd.find_element_by_name("home").send_keys(adress.home)
         wd.find_element_by_name("mobile").click()
         wd.find_element_by_name("mobile").clear()
-        wd.find_element_by_name("mobile").send_keys(mobile)
+        wd.find_element_by_name("mobile").send_keys(adress.mobile)
         wd.find_element_by_name("work").click()
         wd.find_element_by_name("work").clear()
-        wd.find_element_by_name("work").send_keys(work)
+        wd.find_element_by_name("work").send_keys(adress.work)
         wd.find_element_by_name("fax").click()
-        wd.find_element_by_name("fax").send_keys(fax)
+        wd.find_element_by_name("fax").send_keys(adress.fax)
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").clear()
-        wd.find_element_by_name("email").send_keys(email)
+        wd.find_element_by_name("email").send_keys(adress.email)
         wd.find_element_by_name("email2").click()
         wd.find_element_by_name("email2").clear()
-        wd.find_element_by_name("email2").send_keys(email2)
+        wd.find_element_by_name("email2").send_keys(adress.email2)
         wd.find_element_by_name("email3").click()
         wd.find_element_by_name("email3").clear()
-        wd.find_element_by_name("email3").send_keys(email3)
+        wd.find_element_by_name("email3").send_keys(adress.email3)
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
-        wd.find_element_by_name("homepage").send_keys(homepage)
+        wd.find_element_by_name("homepage").send_keys(adress.homepage)
         wd.find_element_by_name("bday").click()
         Select(wd.find_element_by_name("bday")).select_by_visible_text("1")
         wd.find_element_by_name("bmonth").click()
@@ -116,14 +115,14 @@ class TestAdressPy(unittest.TestCase):
         wd.find_element_by_name("ayear").send_keys("1989")
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
-        wd.find_element_by_name("address2").send_keys(address2)
+        wd.find_element_by_name("address2").send_keys(adress.address2)
         wd.find_element_by_name("theform").click()
         wd.find_element_by_name("phone2").click()
         wd.find_element_by_name("phone2").clear()
-        wd.find_element_by_name("phone2").send_keys(phone2)
+        wd.find_element_by_name("phone2").send_keys(adress.phone2)
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
-        wd.find_element_by_name("notes").send_keys(notes)
+        wd.find_element_by_name("notes").send_keys(adress.notes)
 
     def add_new(self, wd):
         # add new
