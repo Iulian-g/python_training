@@ -26,7 +26,7 @@ class TestAdressPy(unittest.TestCase):
         self.return_to_home_page(wd)
         self.logout(wd)
 
-        def test_adress_empty_py(self):
+    def test_adress_empty_py(self):
             wd = self.wd
             self.open_home_page(wd)
             self.login(wd, username="admin", password="secret")
