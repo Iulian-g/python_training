@@ -1,17 +1,14 @@
-from selenium.webdriver.firefox import webdriver
-
+from selenium.webdriver.firefox.webdriver import WebDriver
 
 class Application:
 
     def __init__(self):
-        self.wd = webdriver.Firefox()
+        self.wd = WebDriver()
         self.wd.implicitly_wait(30)
-
 
     def open_home_page(self):
         wd = self.wd
         wd.get("http://localhost/addressbook/index.php")
-
 
     def login(self, username, password):
         wd = self.wd
@@ -26,7 +23,6 @@ class Application:
     def open_groups_page(self):
         wd = self.wd
         wd.find_element_by_link_text("groups").click()
-
 
     def create_group(self, group):
         wd = self.wd
