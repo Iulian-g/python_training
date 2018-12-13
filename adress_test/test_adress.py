@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from adress import Adress
-from application import Application
+from adress_model.adress import Adress
+from adress_fixture.application import Application
 
 @pytest.fixture()
 def app(request):
