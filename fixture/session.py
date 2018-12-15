@@ -16,7 +16,7 @@ class SessionHelper:
         wd.find_element_by_id("LoginForm").submit()
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-   def logout(self):
+    def logout(self):
         # logout
         wd = self.app.wd
         wd.find_element_by_link_text("Logout").click()
