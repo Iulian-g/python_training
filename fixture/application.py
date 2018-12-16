@@ -12,7 +12,7 @@ class Application:
 
     def open_home_page(self):
         wd = self.wd
-        wd.get("http://localhost/addressbook/index.php")
+        wd.get("http://localhost:8080/addressbook/index.php")
 
 
     def destroy(self):

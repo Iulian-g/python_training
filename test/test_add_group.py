@@ -12,3 +12,5 @@ def test_add_empty_group_py(app):
         app.session.login(username="admin", password="secret")
         app.group.create(Group(name="", header="", footer=""))
         app.session.logout()
+
+
