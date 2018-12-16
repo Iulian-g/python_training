@@ -1,9 +1,9 @@
 
-
-class GroupHelper:
+class ContactHelper:
 
     def __init__(self, app):
         self.app = app
+
 
     def add_new(self):
             # add new
@@ -13,6 +13,7 @@ class GroupHelper:
     def create(self, adress):
             # open and init form adress book
             wd = self.app.wd
+
             wd.find_element_by_name("firstname").click()
             wd.find_element_by_name("firstname").clear()
             wd.find_element_by_name("firstname").send_keys(adress.firstname)

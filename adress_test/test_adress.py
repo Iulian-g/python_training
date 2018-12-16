@@ -14,7 +14,7 @@ def test_adress_py(app):
         app.open_home_page()
         app.session.login(username="admin", password="secret")
         app.add_new()
-        app.adress.create (Adress(firstname="gfhg", middlename="gfhf", lastname="fghfgh",
+        app.adress.create(Adress(firstname="gfhg", middlename="gfhf", lastname="fghfgh",
                                   nickname="fghfgh", title="fghfgh", company="fghfgh", address="fghfgh",
                                   home="fghfgh", mobile="fghfgh", work="fghfgh", fax="fghfgh", email="fghfgh",
                                   email2="fghfg", email3="fghfgh", homepage="fghfgh", address2="fghfg",
