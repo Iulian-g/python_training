@@ -84,5 +84,9 @@ class ContactHelper:
     def delete_contact(self):
          wd = self.app.wd
          wd.find_element_by_name("selected[]").click()
-         wd.find_element_by_name("delete").click()
+         wd.find_element_by_xpath("//input[@value='Delete']").click( )
+         #wd.find_element_by_name("Delete").click()
+         wd.switch_to_alert().accept( )
+
+
 
