@@ -5,11 +5,11 @@ from adress_model.contact import Contact
 
 def test_adress_py(app):
         app.session.login(username="admin", password="secret")
-        app.contact.create(Contact(firstname="gfhg", middlename="gfhf", lastname="fghfgh",
-                                  nickname="fghfgh", title="fghfgh", company="fghfgh", address="fghfgh",
-                                  home="fghfgh", mobile="fghfgh", work="fghfgh", fax="fghfgh", email="fghfgh",
-                                  email2="fghfg", email3="fghfgh", homepage="fghfgh", address2="fghfg",
-                                  phone2="fghfgh", notes="fghfgh"))
+        app.contact.create(Contact(firstname="Michel", middlename="Remi", lastname="Nostredame",
+                                  nickname="alchemist", title="astrological consultant", company="Paranormal", address="France",
+                                  home="Saint-Remy-de-Provence, ", mobile="06 23 12 45 54 ", work="Physician", fax="+61-01-123-4567 ", email="france@gmail.com",
+                                  email2="nostric@gmail.com", email3="actor@gmail.com", homepage="Final years", address2="was a French",
+                                  phone2="00-63-02-1234567", notes="legends about his life"))
         app.session.logout()
 
 def test_adress_empty_py(app):
