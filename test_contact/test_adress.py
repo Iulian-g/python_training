@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from adress_model.contact import Contact
+from model_contact.contact import Contact
 
 
 def test_adress_py(app):
