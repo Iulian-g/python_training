@@ -51,14 +51,14 @@ class ContactHelper:
         self.change_field_select("amonth", contact.bmonth)
         self.change_field("ayear", contact.byear)
         self.change_field("address2", contact.address2)
-        self.change_field("phone2", contact.phone)
+        self.change_field("phone2", contact.phone2)
         self.change_field("notes", contact.notes)
 
     def create_new_contact(self, contact):
         # create contact
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
-        #self.fill_contact(contact)
+        self.fill_contact(contact)
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
 
@@ -72,7 +72,9 @@ class ContactHelper:
 
     def modify_contact(self, contact):
         wd = self.app.wd
-        wd.find_element_by_name("edit").click()
+        self.return_to_contacts_page( )
+        wd.find_element_by_css_selector("img[alt=\"Edit\"]").click( )
+#        wd.find_element_by_name("edit").click()
         self.fill_contact(contact)
         wd.find_element_by_name("update").click()
 
