@@ -10,6 +10,10 @@ class ContactHelper:
     def return_to_contacts_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
+        wd.find_element_by_link_text("add new").click()
+        #self.fill_contact(contact)
+        wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
+
 
     def change_field(self, field_name, text):
         wd = self.app.wd
@@ -17,6 +21,7 @@ class ContactHelper:
             wd.find_element_by_name(field_name).click()
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
+
 
     def change_field_file(self, field_name, text):
         wd = self.app.wd
@@ -55,7 +60,6 @@ class ContactHelper:
         self.change_field("notes", contact.notes)
 
     def create_new_contact(self, contact):
-        # create contact
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
         self.fill_contact(contact)
@@ -83,3 +87,4 @@ class ContactHelper:
         wd = self.app.wd
 #        self.fill_contact(contact)
         return len(wd.find_elements_by_name("selected[]"))
+
