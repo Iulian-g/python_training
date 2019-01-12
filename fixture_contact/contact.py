@@ -1,5 +1,7 @@
 from selenium.webdriver.support.select import Select
 
+from model_contact.contact import Contact
+
 
 
 class ContactHelper:
@@ -9,10 +11,13 @@ class ContactHelper:
 
     def return_to_contacts_page(self):
         wd = self.app.wd
+        if wd.current_url.endswith("/") and len(wd.find_elements_by_name("to_group"))>0:
+            return
         wd.find_element_by_link_text("home").click()
-        wd.find_element_by_link_text("add new").click()
-        #self.fill_contact(contact)
-        wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
+#        wd.find_element_by_link_text("home").click()
+#        wd.find_element_by_link_text("add new").click()
+#        self.fill_contact(contact)
+#        wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
 
     def change_field(self, field_name, text):
@@ -61,6 +66,7 @@ class ContactHelper:
 
     def create_new_contact(self, contact):
         wd = self.app.wd
+        self.return_to_contacts_page()
         wd.find_element_by_link_text("add new").click()
         self.fill_contact(contact)
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
@@ -72,7 +78,8 @@ class ContactHelper:
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
-        wd.find_element_by_id("logo").click()
+#        wd.find_element_by_id("logo").click()
+        self.return_to_contacts_page( )
 
     def modify_contact(self, contact):
         wd = self.app.wd
@@ -85,6 +92,17 @@ class ContactHelper:
 
     def count(self):
         wd = self.app.wd
-#        self.fill_contact(contact)
+        self.return_to_contacts_page()
         return len(wd.find_elements_by_name("selected[]"))
 
+
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.return_to_contacts_page()
+        contacts = []
+        for element in wd.find_elements_by_xpath("//tr[@name='entry']"):
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            lastname = element.find_element_by_xpath(".//td[2]").text
+            firstname = element.find_element_by_xpath(".//td[3]").text
+            contacts.append(Contact(id=id, lastname=lastname, firstname=firstname))
+        return contacts
