@@ -1,3 +1,5 @@
+from _operator import index
+
 from selenium.webdriver.support.select import Select
 
 from model_contact.contact import Contact
@@ -14,10 +16,11 @@ class ContactHelper:
         if wd.current_url.endswith("/") and len(wd.find_elements_by_name("to_group"))>0:
             return
         wd.find_element_by_link_text("home").click()
-#        wd.find_element_by_link_text("home").click()
-#        wd.find_element_by_link_text("add new").click()
-#        self.fill_contact(contact)
-#        wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
+
+    def select_contact(self, index):
+        # select first contact
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
 
 
     def change_field(self, field_name, text):
@@ -72,23 +75,27 @@ class ContactHelper:
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
         self.contacts_cash = None
 
+    def delete_first_contact(self):
+        self.delete_contact_by_index(0)
 
-    def delete_contact(self):
+    def delete_contact_by_index(self, index):
+        # delete contact
         wd = self.app.wd
         self.return_to_contacts_page()
-        wd.find_element_by_name("selected[]").click()
+        self.select_contact(index)
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
-#        wd.find_element_by_id("logo").click()
-        self.return_to_contacts_page( )
+#        self.return_to_contacts_page()
         self.contacts_cash = None
 
+    def modify_first_contact(self, contact):
+        self.modify_contact_by_index(0, contact)
 
-    def modify_contact(self, contact):
+    def modify_contact_by_index(self, contact, index):
         wd = self.app.wd
-        self.return_to_contacts_page( )
-        wd.find_element_by_css_selector("img[alt=\"Edit\"]").click( )
-#        wd.find_element_by_name("edit").click()
+        self.return_to_contacts_page()
+        self.select_contact(index)
+        wd.find_elements_by_css_selector("img[alt=\"Edit\"]")[index].click()
         self.fill_contact(contact)
         wd.find_element_by_name("update").click()
         self.contacts_cash = None
