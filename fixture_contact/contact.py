@@ -1,7 +1,7 @@
 
 from selenium.webdriver.support.select import Select
 from model_contact.contact import Contact
-from typing import re
+import re
 
 
 
@@ -108,6 +108,25 @@ class ContactHelper:
         self.return_to_contacts_page( )
         wd.find_elements_by_css_selector('img[alt="Edit"]')[index].click( )
 
+    def open_view_contact_by_index(self, index):
+        wd = self.app.wd
+        self.return_to_contacts_page( )
+        wd.find_elements_by_css_selector("[title='Details']")[index].click( )
+
+#    def open_contact_to_edit_by_index(self, index):
+#        wd = self.app.wd
+#        self.return_to_contacts_page( )
+#        row = wd.find_elements_by_name("entry")[index]
+#        cell = row.find_elements_by_tag_name("td")[7]
+#        cell.find_element_by_tag_name("a").click( )
+
+#    def open_contact_view_by_index(self, index):
+#        wd = self.app.wd
+#        self.return_to_contacts_page( )
+#        row = wd.find_elements_by_name("entry")[index]
+#        cell = row.find_elements_by_tag_name("td")[6]
+#        cell.find_element_by_tag_name("a").click( )
+
 
     def count(self):
         wd = self.app.wd
@@ -125,8 +144,8 @@ class ContactHelper:
                 id = element.find_element_by_css_selector("td.center").find_element_by_name("selected[]").get_attribute("value")
                 lastname = element.find_element_by_xpath(".//td[2]").text
                 firstname = element.find_element_by_xpath(".//td[3]").text
-                all_phones = element.find_element_by_xpath(".//td[6]").text.splitlines()
-                self.contacts_cash.append(Contact(lastname=lastname, firstname=firstname, id=id, home=all_phones[0],mobile=all_phones[1], work=all_phones[2], secondphone=all_phones[3]))
+                all_phones = element.find_element_by_xpath(".//td[6]").text #.splitlines()
+                self.contacts_cash.append(Contact(lastname=lastname, firstname=firstname, id=id, all_phones_from_home_page=all_phones))
         return list(self.contacts_cash)
 
 
@@ -136,18 +155,19 @@ class ContactHelper:
         firstname = wd.find_element_by_name("firstname").get_attribute("value")
         lastname = wd.find_element_by_name("lastname").get_attribute("value")
         id = wd.find_element_by_name("id").get_attribute("value")
-        home = wd.find_element_by_name("home").get_attribute("value")
-        work = wd.find_element_by_name("work").get_attribute("value")
-        mobile = wd.find_element_by_name("mobile").get_attribute("value")
-        secondphone = wd.find_element_by_name("phone2").get_attribute("value")
-        return Contact(firstname=firstname, lastname=lastname, id=id, home=home, mobile=mobile, work=work, secondphone=secondphone)
+        homephone = wd.find_element_by_name("home").get_attribute("value")
+        workphone = wd.find_element_by_name("work").get_attribute("value")
+        mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
+        secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
+        return Contact(firstname=firstname, lastname=lastname, id=id, homephone=homephone, mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone)
 
     def get_contact_from_view_page(self, index):
         wd = self.app.wd
-        wd.find_elements_by_css_selector('img[alt="Details"]') [index].click()
+#        wd.find_elements_by_css_selector('img[alt="Details"]') [index].click()
+        self.open_view_contact_by_index(index)
         text = wd.find_element_by_id("content").text
-        home = re.search("H: (.*)", text).group(1)
-        mobile = re.search("M: (.*)", text).group(1)
-        work = re.search("W: (.*)", text).group(1)
-        phone = re.search("P: (.*)", text).group(1)
-        return Contact(home=home, mobile=mobile, work=work, phone=phone)
+        homephone = re.search("H: (.*)", text).group(1)
+        mobilephone = re.search("M: (.*)", text).group(1)
+        workphone = re.search("W: (.*)", text).group(1)
+        secondaryphone = re.search("P: (.*)", text).group(1)
+        return Contact(homephone=homephone, mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone)
