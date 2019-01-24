@@ -1,14 +1,30 @@
 # -*- coding: utf-8 -*-
 
 from model_contact.contact import Contact
+import pytest
+import random
+import string
 
-def test_add_contact(app):
+def random_string(prefix, maxlen):
+    symbols = string.ascii_letters + string.digits + string.punctuation + " "*10
+    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
+
+testdata = [Contact(firstname="", middlename="", lastname="", nickname="", title="", company="", address="", homephone="", mobilephone="", workphone="", fax="",
+                                  email="", email2="", email3="",homepage="", address2="",
+                                  secondaryphone="", notes="")] + [
+     Contact(firstname=random_string("firstname", 20), middlename=random_string("middlename", 20), lastname=random_string("lastname", 20),
+             nickname=random_string("nickname", 20), title=random_string("title", 20), company=random_string("company", 20),
+             address=random_string("address", 20),
+             homephone=random_string("homephone", 20), mobilephone=random_string("mobilephone", 20), workphone=random_string("workphone", 20),
+             fax=random_string("fax", 20), email=random_string("email", 20),
+             email2=random_string("email2", 20), email3=random_string("email3", 20), homepage=random_string("homepage", 20),
+             secondaryphone=random_string("secondaryphone", 20), notes=random_string("notes", 20))
+     for i in range (5)
+]
+
+@pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
+def test_add_contact(app, contact):
     old_contact = app.contact.get_contact_list( )
-    contact = Contact(firstname="Michel", middlename="Remi", lastname="Nostredame",
-                                  nickname="alchemist", title="astrological consultant", company="Paranormal", address="France",
-                                  home="Saint-Remy-de-Provence, ", mobile="06 23 12 45 54 ", work="Physician", fax="+61-01-123-4567 ", email="france@gmail.com",
-                                  email2="nostric@gmail.com", email3="actor@gmail.com", homepage="Final years",bday="13", bmonth="July", byear="1979", aday="23", amonth="July", ayear="1963", address2="was a French",
-                                  phone2="00-63-02-1234567", notes="legends about his life")
     app.contact.create_new_contact(contact)
     assert len(old_contact)+1 == app.contact.count()
     new_contact = app.contact.get_contact_list()
@@ -16,11 +32,6 @@ def test_add_contact(app):
     assert sorted(old_contact, key=Contact.id_or_max) == sorted(new_contact, key=Contact.id_or_max)
 
 
-#def test_add_empty_contact(app):
-#        app.contact.create_new_contact(Contact(firstname="", middlename="", lastname="",
-#                                    nickname="", title="", company="", address="",
-#                                    home="", mobile="", work="", fax="",
-#                                    email="",
-#                                    email2="", email3="", homepage="", bday="", bmonth="", byear="", aday="", amonth="", ayear="", address2="",
-#                                    phone2="", notes=""))
-
+#             bday=random_string("5", 20), bmonth=random_string("October", 20), byear=random_string("1965", 20), aday=random_string("27", 20),
+#             amonth=random_string("May", 20), ayear=random_string("1989", 20), address2=random_string("address2", 20),
+#bday="", bmonth="", byear="", aday="", amonth="", ayear="",

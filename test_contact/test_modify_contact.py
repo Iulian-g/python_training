@@ -5,9 +5,9 @@ def test_modify_contact(app):
     old_contact = app.contact.get_contact_list()
     contact = Contact(firstname="Michel", middlename="Remi", lastname="Nostredame",
                                   nickname="alchemist", title="astrological consultant", company="Paranormal", address="France",
-                                  home="Saint-Remy-de-Provence, ", mobile="06 23 12 45 54 ", work="Physician", fax="+61-01-123-4567 ", email="france@gmail.com",
+                                  homephone="Saint-Remy-de-Provence, ", mobilephone="06 23 12 45 54 ", workphone="Physician", fax="+61-01-123-4567 ", email="france@gmail.com",
                                   email2="nostric@gmail.com", email3="actor@gmail.com", homepage="Final years",bday="13", bmonth="July", byear="1979", aday="23", amonth="July", ayear="1963", address2="was a French",
-                                  phone2="00-63-02-1234567", notes="legends about his life")
+                                  secondaryphone="00-63-02-1234567", notes="legends about his life")
     contact = Contact(firstname="Ivan", lastname="Ivanov")
     index = randrange(len(old_contact))
     if app.contact.count() == 0:

@@ -50,9 +50,9 @@ class ContactHelper:
         self.change_field("title", contact.title)
         self.change_field("company", contact.company)
         self.change_field("address", contact.address)
-        self.change_field("home", contact.home)
-        self.change_field("mobile", contact.mobile)
-        self.change_field("work", contact.work)
+        self.change_field("home", contact.homephone)
+        self.change_field("mobile", contact.mobilephone)
+        self.change_field("work", contact.workphone)
         self.change_field("fax", contact.fax)
         self.change_field("email", contact.email)
         self.change_field("email2", contact.email2)
@@ -65,7 +65,7 @@ class ContactHelper:
         self.change_field_select("amonth", contact.bmonth)
         self.change_field("ayear", contact.byear)
         self.change_field("address2", contact.address2)
-        self.change_field("phone2", contact.phone2)
+        self.change_field("phone2", contact.secondaryphone)
         self.change_field("notes", contact.notes)
 
     def create_new_contact(self, contact):
