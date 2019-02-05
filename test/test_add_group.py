@@ -1,24 +1,12 @@
 # -*- coding: utf-8 -*-
 from model.group import Group
-import pytest
-from data.add_group import constant as testdata
 
 
-@pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
-def test_add_group_py(app, group):
+def test_add_group_py(app, json_groups):
+    group = json_groups
     old_groups = app.group.get_group_list( )
-#    group = Group(name="new name", header="new header", footer="new footer")
     app.group.create(group)
     assert len(old_groups) + 1 == app.group.count()
     new_groups = app.group.get_group_list()
     old_groups.append(group)
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
-
-#def test_add_empty_group_py(app):
-#    old_groups = app.group.get_group_list( )
-#    group = Group(name="", header="", footer="")
-#    app.group.create(group)
-#    new_groups = app.group.get_group_list( )
-#    assert len(old_groups) + 1 == app.group.count()
-#    old_groups.append(group)
-#    assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
